@@ -6,15 +6,18 @@
 ### USAGE
 
 #### get
+will return null or value
 ```javascript
- let value = get({key: 'any valid js object key'}); // will return null or value
+ let value = get({key: 'any valid js object key'});
 ```
 
 #### set
+will set/update value in cache. `ttl` - time to live in milliseconds. 1000 = 1 second.
+
 ```javascript
 set({
    key: 'any valid js object key',
    value: 'any valid object value',
-   ttl: 1000, // time to live in milliseconds 1000 = 1 second
+   ttl: 1000,
   })
   ```
