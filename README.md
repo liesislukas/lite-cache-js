@@ -11,7 +11,7 @@ npm i lite-cache-js --save
 
 ### USAGE
 
-```
+```javascript
 import cache from 'lite-cache-js';
 
 cache.set({key, value, ttl});
