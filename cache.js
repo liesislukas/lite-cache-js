@@ -12,12 +12,19 @@
  ###################################
   
  * */
+'use strict';
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 // https://github.com/liesislukas/lite-cache-js
 
-let db = {};
+var db = {};
 
-function get({key, extend_ttl}) {
+function get(_ref) {
+  var key = _ref.key,
+    extend_ttl = _ref.extend_ttl;
+
   if (typeof db[key] !== 'undefined') {
     if (db[key].expire_at < Date.now()) {
       delete db[key];
@@ -31,15 +38,21 @@ function get({key, extend_ttl}) {
   return null;
 }
 
-function set({key, value, ttl}) {
+function set(_ref2) {
+  var key = _ref2.key,
+    value = _ref2.value,
+    ttl = _ref2.ttl;
+
   db[key] = {
-    value,
-    ttl,
-    created_at: Date.now(),
+    value: value,
+    ttl: ttl,
+    created_at: Date.now()
   };
 }
 
-function remove({key}) {
+function remove(_ref3) {
+  var key = _ref3.key;
+
   delete db[key];
   return true;
 }
@@ -50,21 +63,21 @@ function clear() {
 }
 
 function clean_up() {
-  const now = Date.now();
-  Object.keys(db).forEach(key => {
+  var now = Date.now();
+  Object.keys(db).forEach(function (key) {
     if (db[key].expire_at < now) {
       delete db[key];
     }
   });
 }
 
-setInterval(() => {
+setInterval(function () {
   clean_up();
 }, 120000);
 
-export default {
-  get,
-  set,
-  remove,
-  clear,
+exports.default = {
+  get: get,
+  set: set,
+  remove: remove,
+  clear: clear
 };
