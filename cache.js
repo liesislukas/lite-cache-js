@@ -6,13 +6,18 @@
  * Upwork: https://www.upwork.com/freelancers/~012711048556a4a4a1
  *
  * Objects are removed after expire time every 2 minutes or while calling get()
+  
+ ########## NPM INSTALLL ###########
+ npm i lite-cache-js --save
+ ###################################
+  
  * */
 
 // https://github.com/liesislukas/lite-cache-js
 
-const db = {};
+let db = {};
 
-export function get({key, extend_ttl}) {
+function get({key, extend_ttl}) {
   if (typeof db[key] !== 'undefined') {
     if (db[key].expire_at < Date.now()) {
       delete db[key];
@@ -25,7 +30,8 @@ export function get({key, extend_ttl}) {
   }
   return null;
 }
-export function set({key, value, ttl}) {
+
+function set({key, value, ttl}) {
   db[key] = {
     value,
     ttl,
@@ -33,10 +39,15 @@ export function set({key, value, ttl}) {
   };
 }
 
-export const cache = {
-  get,
-  set
-};
+function remove({key}) {
+  delete db[key];
+  return true;
+}
+
+function clear() {
+  db = {};
+  return true;
+}
 
 function clean_up() {
   const now = Date.now();
@@ -50,3 +61,10 @@ function clean_up() {
 setInterval(() => {
   clean_up();
 }, 120000);
+
+export default {
+  get,
+  set,
+  remove,
+  clear,
+};
