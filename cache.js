@@ -5,47 +5,44 @@
  * LinkedIn: https://www.linkedin.com/in/lukas-liesis-05335626
  * Upwork: https://www.upwork.com/freelancers/~012711048556a4a4a1
  *
- *  Objects are removed after expire time every 2 minutes or while calling get()
- *
- * ######## USAGE ##########
- *
- * let value = get({key: 'any valid js object key'}); // will return null or value
- *
- * set({
- *   key: 'any valid js object key',
- *   value: 'any valid object value',
- *   ttl: 1000, // time to live in milliseconds 1000 = 1 second
- *  })
- *
- *
+ * Objects are removed after expire time every 2 minutes or while calling get()
  * */
+
+// https://github.com/liesislukas/lite-cache-js
 
 const db = {};
 
-export function get({key}) {
-  if (typeof this.db[key] !== 'undefined') {
-    if (this.db[key].expire_at < Date.now()) {
-      delete this.db[key];
+export function get({key, extend_ttl}) {
+  if (typeof db[key] !== 'undefined') {
+    if (db[key].expire_at < Date.now()) {
+      delete db[key];
       return null;
     }
-    this.db[key].expire_at = this.db[key].created_at + this.db[key].ttl_ms;
-    return this.db[key].value;
+    if (extend_ttl === true) {
+      db[key].expire_at = db[key].created_at + db[key].ttl_ms;
+    }
+    return db[key].value;
   }
   return null;
 }
 export function set({key, value, ttl}) {
-  this.db[key] = {
+  db[key] = {
     value,
     ttl,
     created_at: Date.now(),
   };
 }
 
+export const cache = {
+  get,
+  set
+};
+
 function clean_up() {
   const now = Date.now();
-  Object.keys(this.db).forEach(key => {
-    if (this.db[key].expire_at < now) {
-      delete this.db[key];
+  Object.keys(db).forEach(key => {
+    if (db[key].expire_at < now) {
+      delete db[key];
     }
   });
 }
