@@ -3,6 +3,12 @@
  
  Objects are removed after expire time every 2 minutes or while calling get()
 
+### Install
+
+```
+npm i lite-cache-js --save
+```
+
 ### USAGE
 
 #### get
