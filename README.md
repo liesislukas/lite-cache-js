@@ -1,4 +1,4 @@
-Lite! **Only ~55 lines**.
+Lite! **Only ~85 lines**.
  
 Caching module to hold any JS values in RAM for quick access.
 Objects are removed after expire time every 2 minutes or while calling get()
