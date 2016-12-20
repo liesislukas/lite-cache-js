@@ -13,8 +13,11 @@ npm i lite-cache-js --save
 
 #### get
 will return null or value
+
+`extend_ttl` - boolean. If === true cache's expire date will be extended by it's ttl
+
 ```javascript
- let value = get({key: 'any valid js object key'});
+ let value = get({key: 'any valid js object key', extend_ttl: true});
 ```
 
 #### set
