@@ -1,4 +1,4 @@
-Lite! **Only ~85 lines**.
+Lite! **Only ~55 lines**.
  
 Caching module to hold any JS values in RAM for quick access.
 Objects are removed after expire time every 2 minutes or while calling get()
@@ -12,10 +12,10 @@ npm i lite-cache-js --save
 ### USAGE
 
 ```javascript
-import cache from 'lite-cache-js';
+const cache = require('lite-cache-js');
 
-cache.set({key, value, ttl});
-cache.get({key, extend_ttl});
+cache.set({key, value, ttl_ms});
+cache.get({key, new_ttl_ms});
 cache.remove({key});
 cache.clear();
 ```
@@ -23,20 +23,20 @@ cache.clear();
 #### get
 will return null or value
 
-`extend_ttl` - boolean. If === true cache's expire date will be extended by it's ttl
+`new_ttl_ms` - If set cache's expire date will be set by this ttl. In milliseconds.
 
 ```javascript
- let value = cache.get({key: 'any valid js object key', extend_ttl: true});
+ let value = cache.get({key: 'any valid js object key', new_ttl_ms: 300});
 ```
 
 #### set
-will set/update value in cache. `ttl` - time to live in milliseconds. 1000 = 1 second.
+will set/update value in cache. `ttl_ms` - time to live in milliseconds. 1000 = 1 second.
 
 ```javascript
 cache.set({
    key: 'any valid js object key',
    value: 'any valid object value',
-   ttl: 1000,
+  ttl_ms: 1000,
   })
   ```  
 

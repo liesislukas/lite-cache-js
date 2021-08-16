@@ -1,6 +1,6 @@
 {
   "name": "lite-cache-js",
-  "version": "1.1.4",
+  "version": "2.0.1",
   "description": "Store any JS data in memory with ttl and extend expire date when getting data",
   "main": "cache.js",
   "scripts": {
